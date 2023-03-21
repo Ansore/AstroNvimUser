@@ -11,7 +11,10 @@ return {
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
       function()
-        require("astronvim.utils.status").heirline.buffer_picker(function(bufnr) require("astronvim.utils.buffer").close(bufnr) end)
+        require("astronvim.utils.status").heirline.buffer_picker(function(bufnr)
+          require("astronvim.utils.buffer").close(
+            bufnr)
+        end)
       end,
       desc = "Pick to close",
     },
@@ -19,11 +22,12 @@ return {
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
     -- quick save
-    ["Q"] = {":q<cr>", desc = "Quit"},
-    ["S"] = {":w<cr>", desc = "Save File"},
+    ["Q"] = { ":q<cr>", desc = "Quit" },
+    ["S"] = { ":w<cr>", desc = "Save File" },
     ["J"] = { "5j", desc = "Move cursor down 5 lines" },
     ["K"] = { "5k", desc = "Move cursor up 5 lines" },
-    ["L"] = { function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" },
+    ["L"] = { function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end, desc =
+    "Next buffer" },
     ["H"] = {
       function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
       desc = "Previous buffer",
@@ -38,7 +42,6 @@ return {
     ["fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" },
     ["fm"] = { function() require("telescope.builtin").man_pages() end, desc = "Find man" },
     ["fn"] = { function() require("telescope").extensions.notify.notify() end, desc = "Find notifications" },
-    ["fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find history" },
     ["fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find history" },
     ["ft"] = { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc = "Find themes" },
     ["fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
@@ -59,4 +62,7 @@ return {
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
   },
+  i = {
+    ["C-a"] = { "<esc>A", desc = "Move cursor to end" },
+  }
 }
