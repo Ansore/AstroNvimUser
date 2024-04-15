@@ -90,7 +90,7 @@ return {
           function() require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
           desc = "Previous buffer",
         },
-        ["e"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+        ["tt"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
         ["ff"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
         ["fF"] = {
           function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
