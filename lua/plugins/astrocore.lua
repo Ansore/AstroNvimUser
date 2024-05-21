@@ -78,6 +78,7 @@ return {
         -- quick save
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
         -- quick save
+        ["U"] = { ":UndotreeToggle<cr>", desc = "Quit" },
         ["Q"] = { ":q<cr>", desc = "Quit" },
         ["S"] = { ":w<cr>", desc = "Save File" },
         ["J"] = { "5j", desc = "Move cursor down 5 lines" },
