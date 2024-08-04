@@ -36,7 +36,7 @@ return {
         fallback()
       end
     end, { "i", "s" })
-    opts.mapping["<C-l>"] = cmp.mapping.confirm { select = true }
+    -- opts.mapping["<C-l>"] = cmp.mapping.confirm { select = true }
 
     opts.sources = cmp.config.sources {
       { name = "nvim_lsp", priority = 1000 },
