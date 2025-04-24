@@ -80,26 +80,34 @@ return {
     -- mappings to be set up on attaching of a language server
     mappings = {
       n = {
-        gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+
+        ["<Leader>l"] = { desc = require("astroui").get_icon("ActiveLSP", 1, true) .. "Language Tools" },
+        ["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
         ["g]"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
         ["g["] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Prev Diagnostic" },
-        ["gi"] = { function() vim.lsp.buf.implementation() end, desc = "Prev Diagnostic" },
-        ["K"] = { "5k", desc = "" },
+        ["gr"] = { function() vim.lsp.buf.references() end, desc = "Search references" },
+        ["T"] = { function() require("aerial").toggle() end, desc = "Symbols outline" },
+        ["gd"] = {
+          function() vim.lsp.buf.definition() end,
+          desc = "Show the definition of current symbol",
+          cond = "textDocument/definition",
+        },
+        ["gy"] = {
+          function() vim.lsp.buf.type_definition() end,
+          desc = "Definition of current type",
+          cond = "textDocument/definition",
+        },
         ["M"] = {
           function() vim.lsp.buf.hover() end,
           desc = "Hover symbol details",
         },
-        -- a `cond` key can provided as the string of a server capability to be required to attach, or a function with `client` and `bufnr` parameters from the `on_attach` that returns a boolean
-        -- gD = {
-        --   function() vim.lsp.buf.declaration() end,
-        --   desc = "Declaration of current symbol",
-        --   cond = "textDocument/declaration",
-        -- },
-        -- ["<Leader>uY"] = {
-        --   function() require("astrolsp.toggles").buffer_semantic_tokens() end,
-        --   desc = "Toggle LSP semantic highlight (buffer)",
-        --   cond = function(client) return client.server_capabilities.semanticTokensProvider and vim.lsp.semantic_tokens end,
-        -- },
+        ["gD"] = {
+          function() vim.lsp.buf.declaration() end,
+          desc = "Declaration of current symbol",
+          cond = "textDocument/declaration",
+        },
+        ["<leader>ss"] = { function() require("snacks").picker.lsp_symbols() end, desc = "LSP Symbols" },
+        ["<leader>sS"] = { function() require("snacks").picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
       },
     },
     -- A custom `on_attach` function to be run after the default `on_attach` function

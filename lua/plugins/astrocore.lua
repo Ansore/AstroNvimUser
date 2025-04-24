@@ -13,7 +13,8 @@ return {
       large_buf = { size = 1024 * 500, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
-      diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
+      diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
+      -- diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
@@ -93,29 +94,6 @@ return {
           desc = "Previous buffer",
         },
         ["tt"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
-        ["ff"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
-        ["fF"] = {
-          function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
-          desc = "Find all files",
-        },
-        ["fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Find help" },
-        ["fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" },
-        ["fm"] = { function() require("telescope.builtin").man_pages() end, desc = "Find man" },
-        ["fn"] = { function() require("telescope").extensions.notify.notify() end, desc = "Find notifications" },
-        ["fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find history" },
-        ["ft"] = {
-          function() require("telescope.builtin").colorscheme { enable_preview = true } end,
-          desc = "Find themes",
-        },
-        ["fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
-        ["fW"] = {
-          function()
-            require("telescope.builtin").live_grep {
-              additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-            }
-          end,
-          desc = "Find words in all files",
-        },
       },
       v = {
         ["J"] = { "5j", desc = "Move cursor down 5 lines" },
