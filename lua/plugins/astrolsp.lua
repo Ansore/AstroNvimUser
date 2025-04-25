@@ -80,7 +80,6 @@ return {
     -- mappings to be set up on attaching of a language server
     mappings = {
       n = {
-
         ["<Leader>l"] = { desc = require("astroui").get_icon("ActiveLSP", 1, true) .. "Language Tools" },
         ["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
         ["g]"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
@@ -106,8 +105,8 @@ return {
           desc = "Declaration of current symbol",
           cond = "textDocument/declaration",
         },
-        ["<leader>ss"] = { function() require("snacks").picker.lsp_symbols() end, desc = "LSP Symbols" },
-        ["<leader>sS"] = { function() require("snacks").picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+        ["<leader>sS"] = { function() require("snacks").picker.lsp_symbols() end, desc = "LSP Symbols" },
+        ["<leader>ss"] = { function() require("snacks").picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
       },
     },
     -- A custom `on_attach` function to be run after the default `on_attach` function
