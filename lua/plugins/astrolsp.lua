@@ -76,6 +76,25 @@ return {
           callback = function() vim.lsp.buf.clear_references() end,
         },
       },
+      -- first key is the `augroup` to add the auto commands to (:h augroup)
+      lsp_codelens_refresh = {
+        -- Optional condition to create/delete auto command group
+        -- can either be a string of a client capability or a function of `fun(client, bufnr): boolean`
+        -- condition will be resolved for each client on each execution and if it ever fails for all clients,
+        -- the auto commands will be deleted for that buffer
+        cond = "textDocument/codeLens",
+        -- cond = function(client, bufnr) return client.name == "lua_ls" end,
+        -- list of auto commands to set
+        {
+          -- events to trigger
+          event = { "InsertLeave", "BufEnter" },
+          -- the rest of the autocmd options (:h nvim_create_autocmd)
+          desc = "Refresh codelens (buffer)",
+          callback = function(args)
+            if require("astrolsp").config.features.codelens then vim.lsp.codelens.refresh { bufnr = args.buf } end
+          end,
+        },
+      },
     },
     -- mappings to be set up on attaching of a language server
     mappings = {
@@ -84,10 +103,23 @@ return {
         ["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
         ["g]"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
         ["g["] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Prev Diagnostic" },
-        ["gr"] = { function() vim.lsp.buf.references() end, desc = "Search references" },
         ["T"] = { function() require("aerial").toggle() end, desc = "Symbols outline" },
+        ["gr"] = {
+          function() require("snacks").picker.lsp_references() end,
+          desc = "Search references",
+        },
         ["gd"] = {
-          function() vim.lsp.buf.definition() end,
+          -- function() vim.lsp.buf.definition() end,
+          function()
+            local params = vim.lsp.util.make_position_params(0, "utf-8")
+            vim.lsp.buf_request(0, "textDocument/definition", params, function(_, result, _, _)
+              if not result or vim.tbl_isempty(result) then
+                vim.notify("No definition found", vim.log.levels.INFO)
+              else
+                require("snacks").picker.lsp_definitions()
+              end
+            end)
+          end,
           desc = "Show the definition of current symbol",
           cond = "textDocument/definition",
         },
@@ -106,7 +138,10 @@ return {
           cond = "textDocument/declaration",
         },
         ["<leader>sS"] = { function() require("snacks").picker.lsp_symbols() end, desc = "LSP Symbols" },
-        ["<leader>ss"] = { function() require("snacks").picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+        ["<leader>ss"] = {
+          function() require("snacks").picker.lsp_workspace_symbols() end,
+          desc = "LSP Workspace Symbols",
+        },
       },
     },
     -- A custom `on_attach` function to be run after the default `on_attach` function

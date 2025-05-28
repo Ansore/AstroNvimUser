@@ -9,5 +9,5 @@ return {
   -- import/override with your plugins folder
   { import = "astrocommunity.utility.noice-nvim" },
   -- { import = "astrocommunity.colorscheme.catppuccin" },
-  { import = "astrocommunity.completion.cmp-cmdline" },
+  -- { import = "astrocommunity.completion.cmp-cmdline" },
 }
